@@ -49,7 +49,7 @@ public class SoundManagerPatch
                     TimeElapsed = 0.0f;
                 }
             }
-            else if (Math.Abs(Plugin.OverTimePitch) >= Math.Abs(Plugin.OverTimeMaximum.Value))
+            else if (Math.Abs(Plugin.OverTimePitch) > Math.Abs(Plugin.OverTimeMaximum.Value))
             {
                 Plugin.OverTimePitch = Plugin.OverTimeMaximum.Value;
             }
