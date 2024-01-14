@@ -1,4 +1,5 @@
 using HarmonyLib;
+using System;
 using UnityEngine;
 
 namespace HeliumCompany.Patches;
@@ -36,9 +37,7 @@ public class SoundManagerPatch
     {
         if (Plugin.OverTime.Value)
         {
-            bool negativeMaximum = Plugin.OverTimeMaximum.Value < 0;
-
-            if (!negativeMaximum ? Plugin.OverTimePitch <= Plugin.OverTimeMaximum.Value : Plugin.OverTimePitch >= Plugin.OverTimeMaximum.Value)
+            if (Math.Abs(Plugin.OverTimePitch) < Math.Abs(Plugin.OverTimeMaximum.Value))
             {
                 if (TimeElapsed < Plugin.OverTimeElapse.Value)
                 {
@@ -50,7 +49,7 @@ public class SoundManagerPatch
                     TimeElapsed = 0.0f;
                 }
             }
-            else if (!negativeMaximum ? Plugin.OverTimePitch > Plugin.OverTimeMaximum.Value : Plugin.OverTimePitch < Plugin.OverTimeMaximum.Value)
+            else if (Math.Abs(Plugin.OverTimePitch) >= Math.Abs(Plugin.OverTimeMaximum.Value))
             {
                 Plugin.OverTimePitch = Plugin.OverTimeMaximum.Value;
             }
